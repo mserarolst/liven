@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: unset;
+}
+
+.css-jegoe9::before {
+    border-bottom: 1px solid rgb(255 255 255 / 42%) !important;
+}
+
+.css-6ww7xd {
+    border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+.css-1n0hd9t {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: local('Helvetica'), url(../fonts/HelveticaNeue.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica-bold';
+    src: local('Helvetica'), url(../fonts/HelveticaNeueBd.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica-semibold';
+    src: local('Helvetica'), url(../fonts/HelveticaNeueMedium.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica-light';
+    src: local('Helvetica'), url(../fonts/HelveticaNeueLight.ttf) format('truetype');
+}
