@@ -1,0 +1,54 @@
+.Description-container {
+    position: relative;
+    max-height: 768px;
+}
+
+.Description-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 768px;
+}
+
+.Description-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffffc9;
+}
+
+.Description-content {
+    position: absolute;
+    max-width: 47%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    height: 65%;
+}
+
+.Description-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Description-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 33.33%;
+}
+
+.Description-svg {
+    width: 100px !important;
+    height: 100px !important;
+    color: #2C6E3E;
+}

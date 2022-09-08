@@ -5,6 +5,10 @@ import '../../static/css/Home.css';
 import { Link } from 'react-router-dom';
 import { get } from '../api/API';
 import Portada from './Portada/Portada';
+import Description from './Portada/Description';
+import People from './Portada/People';
+import Fork from './Portada/Fork';
+import Footer from '../components/Footer';
 
 const Home = (props) => {
     const [fotos, setFotos] = useState([]);
@@ -16,6 +20,10 @@ const Home = (props) => {
         <Page title="Liven">
             <div className="Home-container">
                 <Portada />
+                <Description />
+                <People />
+                <Fork />
+                <Footer />
             </div>
         </Page>
     );
