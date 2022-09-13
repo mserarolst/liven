@@ -9,6 +9,7 @@ import Description from './Portada/Description';
 import People from './Portada/People';
 import Fork from './Portada/Fork';
 import Footer from '../components/Footer';
+import We from './Portada/We';
 
 const Home = (props) => {
     const [fotos, setFotos] = useState([]);
@@ -21,6 +22,7 @@ const Home = (props) => {
             <div className="Home-container">
                 <Portada />
                 <Description />
+                <We />
                 <People />
                 <Fork />
                 <Footer />

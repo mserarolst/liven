@@ -1,0 +1,44 @@
+.We-container {
+    max-height: 642px;
+    position: relative;
+}
+
+.We-img {
+    max-height: 642px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.We-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.2;
+}
+
+.We-content {
+    max-width: 50%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.We-title {
+    font-family: 'Lato-bold' !important;
+    color: #fff;
+    margin-bottom: 64px !important;
+    text-align: center;
+}
