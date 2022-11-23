@@ -81,18 +81,22 @@ const getUser = async (token) => {
 const search = async (values) => {
     let message;
     let result;
-    let url = 'search-dona?';
+    let url = 'search-products?';
     let primer = true;
         if (values.dona_data != "") {
-            primer ? url+='dona_data='+values.dona_data  : url+='&dona_data='+values.dona_data ;
+            primer ? url+='product_family='+values.product_family  : url+='&product_family='+values.product_family ;
             if (primer) primer = false;
         }
         if (values.dona_product != "") {
-            primer ? url+='dona_product='+values.dona_product  : url+='&dona_product='+values.dona_product ;
+            primer ? url+='claim='+values.claim  : url+='&claim='+values.claim ;
             if (primer) primer = false;
         }
         if (values.dona_quefem != "") {
-            primer ? url+='dona_quefem='+values.dona_quefem : url+='&dona_quefem='+values.dona_quefem;
+            primer ? url+='filter='+values.filter : url+='&filter='+values.filter;
+            if (primer) primer = false;
+        }
+        if (values.dona_quefem != "") {
+            primer ? url+='value='+values.value : url+='&value='+values.value;
             if (primer) primer = false;
         }
 
@@ -116,42 +120,30 @@ const search = async (values) => {
     return { result, message };
 }
 
-const createDona = async (values) => {
-    let result = {
-        message: '',
-        data: null,
-    };
-    var form_data = new FormData();
+const searchName = async (values) => {
+    let message;
+    let result;
+    let url = 'search-products-by-name?name='+values.name;
 
-    for (var key in values) {
-        form_data.append(key, values[key]);
-    }
-    await fetch('/api/create-dona', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: form_data,
-    })
+    await fetch('/api/' + url)
         .then((response) => {
             if (response.ok) {
-                result.message = 'Dona creada correctament!';
+                message = 'Dades rebudes';
             } else {
-                result.message = 'error';
-                result.data = null;
+                message = 'Error';
             }
             return response.json();
         })
-        .then((data) => {
-            result.data = data;
+        .then((json) => {
+            result = json;
         })
         .catch((e) => {
-            result.message = 'error';
+            message = 'error';
             console.log(e);
         });
 
-    return result;
-};
+    return { result, message };
+}
 
 const create = async (values, url) => {
     let message;
@@ -416,12 +408,12 @@ export {
     get,
     getUser,
     create,
-    createDona,
     deleteElement,
     update,
     createOrder,
     createOrderLot,
     sendEmail,
     changeState,
-    search
+    search,
+    searchName
 };

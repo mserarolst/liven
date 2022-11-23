@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CreateFiltersView, CreateValuesView, DeleteFiltersView, DeleteValuesView, FiltersView, GetFiltersByProductFamilyView, GetFiltersListView, GetFiltersView, GetValuesByFiltersView, GetValuesListView, GetValuesView, ProductFamiliesView, CreateProductFamiliesView, DeleteProductFamiliesView, GetProductFamiliesView, GetProductFamiliesListView, UpdateFiltersView, UpdateProductFamiliesView, ClaimsView, CreateClaimsView, DeleteClaimsView, GetClaimsView, GetClaimsListView, UpdateClaimsView, UpdateValuesView, ValuesView, CreateProductView, GetProductsListView, DeleteProductView
+from .views import CreateFiltersView, CreateValuesView, DeleteFiltersView, DeleteValuesView, FiltersView, GetFiltersByProductFamilyView, GetFiltersListView, GetFiltersView, GetValuesByFiltersView, GetValuesListView, GetValuesView, ProductFamiliesView, CreateProductFamiliesView, DeleteProductFamiliesView, GetProductFamiliesView, GetProductFamiliesListView, UpdateFiltersView, UpdateProductFamiliesView, ClaimsView, CreateClaimsView, DeleteClaimsView, GetClaimsView, GetClaimsListView, UpdateClaimsView, UpdateValuesView, ValuesView, CreateProductView, GetProductsListView, DeleteProductView, SearchProductView, SearchProductByNameView
 
 urlpatterns = [
     path('product-families', ProductFamiliesView.as_view()),
@@ -35,4 +35,6 @@ urlpatterns = [
     path('create-product', CreateProductView.as_view()),
     path('delete-product', DeleteProductView.as_view()),
     path('get-products-list', GetProductsListView.as_view()),
+    path('search-products', SearchProductView.as_view()),
+    path('search-products-by-name', SearchProductByNameView.as_view())
 ]

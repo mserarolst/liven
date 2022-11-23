@@ -325,3 +325,36 @@ class DeleteProductView(APIView):
             product.delete()
             return Response('Product deleted', status=status.HTTP_200_OK)
         return Response('Product not found', status=status.HTTP_404_NOT_FOUND)
+
+
+class SearchProductView(APIView):
+
+    def get(self, request, format=None):
+        product_family_id = request.GET.get('product_family')
+        claim_id = request.GET.get('claim')
+        filter_id = request.GET.get('filter')
+        value_id = request.GET.get('value')
+        results = Product.objects.all()
+        if (product_family_id != 'null' and results.exists()):
+            results = results.filter(product_family=product_family_id)
+        if (claim_id != 'null' and results.exists()):
+            results = results.filter(claim=claim_id)
+        if (filter_id != 'null' and results.exists()):
+            results = results.filter(filter=filter_id)
+        if (value_id != 'null' and results.exists()):
+            results = results.filter(value=value_id)
+
+        if results.exists():
+            data = ProductSerializer(results, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        return Response([], status=status.HTTP_200_OK)
+
+class SearchProductByNameView(APIView):
+
+    def get(self, request, format=None):
+        name = request.GET.get('name')
+        results = Product.objects.filter(name=name)
+        if results.exists():
+            data = ProductSerializer(results, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        return Response([], status=status.HTTP_200_OK)

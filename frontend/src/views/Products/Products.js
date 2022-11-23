@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Page from '../../components/Page';
 import '../../../static/css/Products/Products.css';
 import { Link } from 'react-router-dom';
-import { get } from '../../api/API';
+import { get, search, searchName } from '../../api/API';
 import Result from './Result';
 import SearchProduct from './SearchProduct';
 import TypeFilters from './TypeFilters';
@@ -25,12 +25,38 @@ const Products = (props) => {
     const [loading, setLoading] = useState(true);
 
     const [products, setProducts] = useState([]);
+    const [productList, setProductList] = useState([]);
     const [indexSelected, setIndexSelected] = useState(0);
     const [value, setValue] = useState({ title: 'Product1', image: product, index: 0 });
-    const [inputValue, setInputValue] = useState('Product1');
+    const [inputValue, setInputValue] = useState(null);
+
+    const searchProducts = async () => {
+        setLoading(true);
+        const params = {
+            product_family: productFamilySelected != null ? productFamilySelected?.id : null,
+            claim: claimSelected != null ? claimSelected?.id : null,
+            filter: filterSelected != null ? filterSelected?.id : null,
+            value: valueSelected != null ? valueSelected?.id : null
+        }
+        const { result, message } = await search(params);
+        setProducts(result);
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        console.log(message);
+    }
+
+    const searchProductsByName = async (values) => {
+        setLoading(true);
+        const { result, message } = await searchName(values);
+        setProducts(result);
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        console.log(message);
+    }
 
     useEffect(() => {
-        window.scrollTo(0, 0);
         const getProductFamilies = async () => {
             const { data, message } = await get('get-product-families-list');
             console.log(message);
@@ -38,7 +64,6 @@ const Products = (props) => {
 
             setProductFamilies(data);
             setFirstTitle(data[0]?.title);
-            setLoading(false);
         };
         getProductFamilies();
         const getClaims = async () => {
@@ -48,7 +73,9 @@ const Products = (props) => {
 
             setClaims(data);
             setSecondTitle(data[0]?.title);
-            setLoading(false);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         };
         getClaims();
     }, []);
@@ -69,16 +96,13 @@ const Products = (props) => {
                 array.push(item);
             })
             setProducts(array);
+            setProductList(array);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
         if (productFamilies.length > 0) getProducts();
     }, [productFamilies]);
-
-    useEffect(() => {
-        if (products.length > 0) {
-            setValue(products[indexSelected]);
-            setInputValue(products[indexSelected].name);
-        }
-    }, [products]);
 
     useEffect(() => {
         if (value != null) {
@@ -92,8 +116,17 @@ const Products = (props) => {
 
             setFilters(data);
         };
-        if(productFamilySelected != null) getFilters();
+        if(productFamilySelected != null) {
+            getFilters();
+            searchProducts();
+        }
     }, [productFamilySelected]);
+
+    useEffect(() => {
+        if(claimSelected != null) {
+            searchProducts();
+        }
+    }, [claimSelected]);
 
     useEffect(() => {
         const getValues = async () => {
@@ -101,8 +134,26 @@ const Products = (props) => {
 
             setValues(data);
         };
-        if(filterSelected != null) getValues();
+        if(filterSelected != null) {
+            getValues();
+            searchProducts();
+        }
     }, [filterSelected]);
+
+    useEffect(() => {
+        if(valueSelected != null) {
+            searchProducts();
+        }
+    }, [valueSelected]);
+
+    useEffect(() => {
+        if(inputValue != null) {
+            const values = {
+                name: inputValue
+            };
+            searchProductsByName(values);
+        }
+    }, [inputValue]);
 
     function getProductFamily(id) {
         let result;
@@ -116,13 +167,19 @@ const Products = (props) => {
 
     const renderResults = () => {
         return (
-            products?.map((product, index) => {
-                return (
-                    <Grid item md={6}>
-                        <Result item={product} index={index}/>
-                    </Grid>
-                )
-            })
+            !loading ? (
+                products?.map((product, index) => {
+                    return (
+                        <Grid item md={6}>
+                            <Result item={product} index={index}/>
+                        </Grid>
+                    )
+                })
+            ) : (
+                <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <CircularProgress sx={{width:'80px !important', height:'80px !important'}}/>
+                </div>
+            )
         )    
     }
 
@@ -171,7 +228,7 @@ const Products = (props) => {
                     <Typography variant='h1' color='#555448' marginBottom='30px' fontFamily='Lato-Light' marginTop={'40%'}>Our Products</Typography>
                     <Typography variant='h3' color='#555448' marginBottom='30px'>Discover our range of products we can offer you. Deep in our range of snacks and tex-mex options, and find your best solution.</Typography>
                     <SearchProduct 
-                        products={products} 
+                        products={productList} 
                         value={value} 
                         setValue={setValue} 
                         inputValue={inputValue} 
@@ -198,7 +255,7 @@ const Products = (props) => {
                     
                 </div>
                 <div className="Products-results">
-                    <Grid container spacing={3}>
+                    <Grid container spacing={3} sx={{height: '100%'}}>
                         {renderResults()}
                     </Grid>
                 </div>

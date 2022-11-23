@@ -41,9 +41,10 @@ class Product(models.Model):
     name = models.CharField(max_length=240, default="")
     description = models.CharField(max_length=2048, default="")
     image = models.ImageField(_("Image"), upload_to=upload_to, default="post_images/default.jpg")
-    product_family = models.ForeignKey(ProductFamilies, on_delete=models.CASCADE)
-    claim = models.ForeignKey(Claims, on_delete=models.CASCADE)
-    filter = models.ForeignKey(Filters, on_delete=models.CASCADE)
+    product_family = models.ForeignKey(ProductFamilies, on_delete=models.CASCADE, default=None)
+    claim = models.ForeignKey(Claims, on_delete=models.CASCADE, default=None)
+    filter = models.ForeignKey(Filters, on_delete=models.CASCADE, default=None)
+    value = models.ForeignKey(Values, on_delete=models.CASCADE, default=None)
 
     class Meta:
         ordering = ['name']
