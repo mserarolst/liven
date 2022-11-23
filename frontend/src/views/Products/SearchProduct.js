@@ -5,31 +5,29 @@ import TextField from '@mui/material/TextField';
 
 
 const SearchProduct = (props) => {
-    const [fotos, setFotos] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const top100Films = [
-        { title: 'The Shawshank Redemption', year: 1994 },
-        { title: 'The Godfather', year: 1972 },
-        { title: 'The Godfather: Part II', year: 1974 },
-
-        { title: 'City of God', year: 2002 },
-        { title: 'Se7en', year: 1995 },
-        { title: 'The Silence of the Lambs', year: 1991 }
-
-    ];
-
     return (
         <Autocomplete
+            value={props.value}
+            onChange={(event, newValue) => {
+                props.setValue(newValue);
+                props.setInputValue(newValue.name);
+                props.setIndexSelected(newValue.index);
+            }}
+            inputValue={props.inputValue}
+            onInputChange={(event, newInputValue, index) => {
+                props.setInputValue(newInputValue);
+            }}
             id="size-small-standard"
             size="small"
-            options={top100Films}
-            getOptionLabel={(option) => option.title}
-            defaultValue={top100Films[13]}
-            sx={{marginBottom: '63px'}}
+            options={props.products}
+            getOptionLabel={(option) => option.name}
+            defaultValue={props.products[props.indexSelected]?.name}
+            sx={{marginBottom: '63px', width: '100%'}}
             renderInput={(params) => (
                 <TextField
                     {...params}

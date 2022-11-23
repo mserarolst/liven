@@ -1,5 +1,14 @@
 .TypeFilters-filter {
-    color: #fff;
     text-align: left;
     width: 100%;
 }
+
+.css-f3ivw0.Mui-selected {
+    background-color: #5d694a !important;
+    color: #fff !important;
+}
+
+.css-f3ivw0 {
+    color: #73726a;
+}
+

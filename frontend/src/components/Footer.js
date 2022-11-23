@@ -2,10 +2,10 @@ import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import '../../static/css/components/Footer.css';
 import { Link } from 'react-router-dom';
-import logo from '../../static/images/logo-green.png';
+import logo from '../../static/logos/liven/logo-green.svg';
+import LivenIcon from './Icons/LivenIcon';
 
 const Footer = (props) => {
-    const [fotos, setFotos] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -13,7 +13,7 @@ const Footer = (props) => {
 
     return (
         <Box className="Footer-container">
-            <img src={logo} className="Footer-logo"/>
+            <LivenIcon extraClass="Footer-logo"/>
         </Box>
     );
 };

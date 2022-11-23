@@ -19,13 +19,14 @@ import {
 import { Close, Dashboard, Input, Menu } from '@mui/icons-material';
 import navBarStyle from './NavBarStyle';
 import NavBarItem from './NavBarItem';
-import logo from '../../../static/images/logo.png'
+import logo from '../../../static/logos/liven/logo.svg'
 import MenuLiven from './MenuLiven';
 
 const MainLayout = () => {
     const classes = navBarStyle();
     const [colorMenu, setColorMenu] = useState(null);
-    const [menu, setMenu] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [location, setLocation] = useState(null);
     const [isLogged, setIsLogged] = useState(
         localStorage.getItem('isLoggedIn') || ''
     );
@@ -36,6 +37,7 @@ const MainLayout = () => {
     useEffect(() => {
         isHomePage() ? setColorMenu('transparent') : setColorMenu('#C3D6A5');
         setIsLogged(localStorage.getItem('isLoggedIn'));
+        setLocation(window.location.pathname);
     }, [isLogged, window.location.pathname]);
 
     function getIsMobile() {
@@ -103,95 +105,13 @@ const MainLayout = () => {
         setMenu(null);
     };
 
-    const renderMenuMobile = () => {
-        return (
-            <AppBar elevation={0}>
-                <Toolbar className={classes.toolbar}>
-                    <Link to="/">
-                        <div>
-                            <img src={logo} width={202} />
-                        </div>
-                    </Link>
-                    <Box flexGrow={1} />
-                    <Box>
-                        {isLogged === 'true' && (
-                            <>
-                                <IconButton
-                                    color="inherit"
-                                    onClick={() => navigate('/administracio')}
-                                >
-                                    <Dashboard />
-                                </IconButton>
-                                <IconButton
-                                    color="inherit"
-                                    onClick={() => logOut()}
-                                >
-                                    <Input />
-                                </IconButton>
-                            </>
-                        )}
-                    </Box>
-                    <IconButton
-                        style={{ zIndex: 10 }}
-                        color="primary"
-                        aria-controls="simple-menu"
-                        aria-haspopup="true"
-                        onClick={openMenu}
-                    >
-                        <Menu sx={{ fontSize: 40 }} />
-                    </IconButton>
-                    <Drawer
-                        open={menu}
-                        onClose={closeMenu}
-                        anchor="top"
-                        className={classes.drawer}
-                        transitionDuration={600}
-                        MenuProps={{ disableScrollLock: true }}
-                        disableScrollLock={true}
-                    >
-                        <Grid container>
-                            <Grid item xs>
-                                <div>
-                                    <img src={logo} width={202} />
-                                </div>
-                            </Grid>
-                            <Grid item xs textAlign="right">
-                                <Box p={4}>
-                                    <IconButton>
-                                        <Close
-                                            onClick={closeMenu}
-                                            sx={{ fontSize: 40 }}
-                                            color="primary"
-                                        />
-                                    </IconButton>
-                                </Box>
-                            </Grid>
-                        </Grid>
-
-                        <List>
-                            {items?.map((item) => (
-                                <NavBarItem
-                                    to={item.to}
-                                    key={item.title}
-                                    title={item.title}
-                                    closeMenu={closeMenu}
-                                />
-                            ))}
-                        </List>
-                    </Drawer>
-                </Toolbar>
-            </AppBar>
-            
-        )
-    };
-
     const isHomePage = () => {
         return window.location.pathname == '/' || window.location.pathname == '/botiga' || window.location.pathname == '/contacte';
     }
 
     return (
         <div>
-            <MenuLiven isHome={isHomePage()}/>
+            <MenuLiven isHome={isHomePage()} location={location} open={open} setOpen={setOpen}/>
             <div className={classes.wrapper}>
                 <div className={classes.contentContainer}>
                     <div className={classes.content}>

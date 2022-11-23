@@ -1,0 +1,10 @@
+.PauligBanner-content {
+    padding: 24px 74px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PauligBanner-icon {
+    max-width: 300px;
+}

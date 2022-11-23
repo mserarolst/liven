@@ -9,49 +9,111 @@ import Slide from '@mui/material/Slide';
 import React, { useEffect, useState } from 'react';
 import '../../../static/css/MenuLiven/MenuLiven.css';
 import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import Stack from '@mui/material/Stack';
+import logo from '../../../static/logos/liven/logo.svg';
+import useScrollPosition from '../../components/useScrollPosition';
+import LivenIcon from '../../components/Icons/LivenIcon';
 
 const MenuLiven = (props) => {
-    const navItems = [{title: 'HOME', link: '/home'}, {title: 'COMPANY', link: '/company'}, {title: 'COMMITMENT', link: '/commitent'}, {title: 'PRODUCTS', link: '/products'}, {title: 'PEOPLE', link: '/people'}, {title: 'SHARING VOICES', link: '/sharing-voices'}, {title: 'CONTACT', link: '/contact'}];
+    const navItems = [
+        {title: 'HOME', link: '/'}, 
+        // {title: 'COMPANY', link: '/company'}, 
+        // {title: 'COMMITMENT', link: '/commitent'}, 
+        {title: 'PRODUCTS', link: '/products'}, 
+        // {title: 'PEOPLE', link: '/people'}, 
+        // {title: 'SHARING VOICES', link: '/sharing-voices'}, 
+        // {title: 'CONTACT', link: '/contact'}
+    ];
+    const [translateLogo, setTranslateLogo] = useState('');
+    const [colorMenu, setColorMenu] = useState('');
+    const [colorLogo, setColorLogo] = useState('');
+
+    const scrollPosition = useScrollPosition();
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        if (scrollPosition > 0 && translateLogo != ' logo-translated') {
+            setTranslateLogo(' logo-translated');
+            setColorMenu(' menu-white');
+            setColorLogo(' Menu-logo-black');
+        } else if (scrollPosition == 0) {
+            setTranslateLogo(' logo-initial');
+            setColorMenu(' menu-transparent');
+            props.location == "/products" ? setColorLogo(' Menu-logo-black') : setColorLogo(' Menu-logo-white');
+        }
+    }, [scrollPosition]);
 
-    function HideOnScroll(props) {
-        const { children, window } = props;
-        // Note that you normally won't need to set the window ref as useScrollTrigger
-        // will default to window.
-        // This is only being set here because the demo is in an iframe.
-        const trigger = useScrollTrigger({
-          target: window ? window() : undefined,
-        });
-      
+    useEffect(() => {
+        setTranslateLogo(' logo-initial');
+        setColorMenu(' menu-transparent');
+        props.location == "/products" ? setColorLogo(' Menu-logo-black') : setColorLogo(' Menu-logo-white');
+        props.setOpen(false);
+    }, [props.location]);
+
+    const Desplegable = () => {
         return (
-          <Slide appear={false} direction="down" in={!trigger}>
-            {children}
-          </Slide>
-        );
+            <Box className={'MenuLiven-container ' + (props.open ? 'opened' : '')}>
+                <Box className='MenuLiven-container-title'>
+                    <Typography variant='h2'>What are you looking for?</Typography>
+                    <div className='MenuLiven-container-title-line'></div>
+                </Box>
+                <Box className='MenuLiven-container-items'>
+                    {navItems.map((item) => (
+                        <ItemMenu item={item}/>
+                    ))}
+                </Box>
+            </Box>
+        )
     }
 
-    if (props.isHome) {
+    const ItemMenu = (props) => {
         return (
-            <HideOnScroll {...props}>
-                <AppBar sx={{backgroundColor: 'rgb(255 255 255 / 16%)', height: '71px', alignItems: 'flex-end', justifyContent: 'center'}}>
-                    <Toolbar sx={{marginRight: '81px'}}>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            {navItems.map((item) => (
-                            <Button key={item} sx={{ color: '#fff', font: 'normal normal normal 20px/24px Helvetica', padding: '0 25px' }}>
-                                <Link to={item.link} className='link'>
-                                    {item.title}
-                                </Link>
-                            </Button>
-                            ))}
-                        </Box>
-                    </Toolbar>
-                </AppBar>
-            </HideOnScroll>
-        );
+            <div className='MenuLiven-ItemMenu'>
+                <Link to={props.item.link} className='link'>
+                    <Typography variant='h3'>{props.item.title}</Typography>
+                </Link>
+            </div>
+        )
     }
+
+    function onClickMenu() {
+        if (props.open) {
+            if (scrollPosition > 0) {
+                props.setOpen(!props.open);
+            } else {
+                setTranslateLogo(' logo-initial');
+                setColorMenu(' menu-transparent');
+                setColorLogo(' Menu-logo-white');
+                props.setOpen(!props.open);
+            }
+            
+        } else {
+            if (scrollPosition > 0) {
+                props.setOpen(!props.open);
+            } else {
+                setTranslateLogo(' logo-translated');
+                setColorMenu(' menu-white');
+                setColorLogo(' Menu-logo-black');
+                setTimeout(() => {
+                    props.setOpen(!props.open);
+                }, 1000);
+            }
+        }
+    }
+
+    
+    return (
+        <div>
+            <div className={'MenuLiven-topbar'+colorMenu}>
+                <div id="LogoPage" className={"MenuLiven-logo" + translateLogo}><LivenIcon width={'200px'} extraClass={"Menu-logo"+colorLogo}/></div>
+                <div className='MenuLiven-container-hamburger' onClick={onClickMenu}>
+                    {props.open ? <CloseIcon sx={{width:'2em', height:'2em', cursor:'pointer'}} htmlColor='#555448'/> : <MenuIcon className={'MenuLiven-hamburguer'+colorLogo} sx={{width:'2em', height:'2em', cursor:'pointer'}}/>}
+                </div>
+            </div>
+            <Desplegable/>
+        </div>
+    );
 
     
 };

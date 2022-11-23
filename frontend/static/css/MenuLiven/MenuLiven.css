@@ -1,0 +1,182 @@
+.MenuLiven-container-hamburger {
+    z-index: 12;
+    width: 50px;
+    height: 50px;
+    margin-right: 7%; 
+    position: absolute;
+    top: 25px;
+}
+
+.MenuLiven-hamburguer {
+    color: #fff;
+}
+
+.MenuLiven-container {
+    height: 0;
+    max-height: 0;
+    position: fixed;
+    top: 100px;
+    width: 100%;
+    z-index: 11;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    opacity: 0.85;
+}
+
+.MenuLiven-topbar {
+    position: fixed;
+    z-index: 11;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    opacity: 0.85;
+}
+
+@keyframes openMenu {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 100%;
+    }
+}
+
+.opened {
+    height: auto;
+    max-height: 100%;
+    animation: openMenu 0.5s ease-in-out;
+}
+
+.MenuLiven-container-title {
+    margin: 2% 5%;
+}
+
+.MenuLiven-container-title-line {
+    height: 1px;
+    background-color: #555448;
+    max-width: 25%;
+    margin-top: 10px;
+}
+.MenuLiven-container-items {
+    margin: 0 10%;
+    margin-bottom: 2%;
+}
+
+.MenuLiven-ItemMenu {
+    margin-bottom: 1%;
+}
+
+.MenuLiven-logo {
+    position: absolute;
+    top: 100px;
+    left: 7%;
+    width: 20%;
+    color: white;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    z-index: 11;
+}
+
+.logo-translated {
+    top: 28%;
+    animation: translateLogo 1s ease-in-out;
+    width: 12%;
+}
+
+@keyframes translateLogo {
+    0% {
+        top: 100px;
+        width: 20%;
+    }
+    100% {
+        top: 28%;
+        width: 12%;
+    }
+}
+
+.logo-initial {
+    top: 100px;
+    animation: initialLogo 1s ease-in-out;
+    width: 20%;
+}
+
+@keyframes initialLogo {
+    0% {
+        top: 28%;
+        width: 12%;
+    }
+    100% {
+        top: 100px;
+        width: 20%;
+    }
+}
+
+.Menu-logo {
+    width: 100%;
+    fill: #fff;
+}
+
+.Menu-logo-black {
+    fill: #555448;
+    color: #555448;
+    animation: menuLogoBlack 1s ease-in-out;
+}
+
+@keyframes menuLogoBlack {
+    0% {
+        fill: #fff;
+    }
+    100% {
+        fill: #555448;
+    }
+}
+
+.Menu-logo-white {
+    fill: #fff;
+    animation: menuLogoWhite 1s ease-in-out;
+}
+
+@keyframes menuLogoWhite {
+    0% {        
+        fill: #555448;
+    }
+    100% {
+        fill: #fff;
+    }
+}
+
+.menu-white {
+    background-color: #f5f5f5;
+    animation: menuWhite 1s ease-in-out;
+    height: 100px;
+}
+
+@keyframes menuWhite {
+    0% {
+        background-color: transparent;
+        height: 0;
+    }
+    100% {
+        background-color: #f5f5f5;
+        height: 100px;
+    }
+}
+
+.menu-transparent {
+    background-color: transparent;
+    animation: menuTransparent 1s ease-in-out;
+    height: 0;
+}
+
+@keyframes menuTransparent {
+    0% {
+        background-color: #f5f5f5;
+        height: 100px;
+    }
+    100% {
+        background-color: transparent;
+        height: 0;
+    }
+}

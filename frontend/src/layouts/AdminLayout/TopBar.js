@@ -5,7 +5,7 @@ import { Dashboard, Input, Menu } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 // import { ReactComponent as Logo } from "../../theme/icons/logo.svg";
-import logo from '../../../static/images/logo.png';
+import logo from '../../../static/logos/liven/logo.svg';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const useStyles = makeStyles(() => ({

@@ -1,0 +1,53 @@
+.Sustanibility-container {
+    max-height: 567px;
+    position: relative;
+    color: #FFFFFF;
+}
+
+.Sustanibility-img {
+    max-height: 567px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.Sustanibility-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #faf9f9;
+    opacity: 0.4;
+}
+
+.Sustanibility-content {
+    max-width: 66%;
+    width: 100%;
+    position: absolute;
+    top: 24%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Sustanibility-subcontent {
+    position: absolute;
+    bottom: 2.63%;
+    left: 51.2%;
+    width: 100%;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Sustanibility-title {
+    text-align: left !important;
+    text-transform: unset !important;
+}
+
+.Sustanibility-footer {
+    text-align: left;
+    text-transform: unset !important;
+}

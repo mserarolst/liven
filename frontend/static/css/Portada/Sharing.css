@@ -1,0 +1,25 @@
+.Sharing-container {
+    padding: 72px 162px 42px 71px;
+    display: flex;
+    justify-content: space-between;
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+}
+.Sharing-left {
+    max-width: 60%;
+}
+.Sharing-right {
+    max-width: 30%;
+}
+.Sharing-image {
+    max-width: 300px;
+}
+
+.Sharing-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.Sharing-image-text {
+    margin-top: 21px;
+}

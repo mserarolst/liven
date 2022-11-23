@@ -10,6 +10,12 @@ import People from './Portada/People';
 import Fork from './Portada/Fork';
 import Footer from '../components/Footer';
 import We from './Portada/We';
+import OurProducts from './Portada/OurProducts';
+import Clients from './Portada/Clients';
+import Sustanibility from './Portada/Sustanibility';
+import Sharing from './Portada/Sharing';
+import SliderComponent from '../components/SliderComponent';
+import PauligBanner from './Portada/PauligBanner';
 
 const Home = (props) => {
     const [fotos, setFotos] = useState([]);
@@ -21,10 +27,12 @@ const Home = (props) => {
         <Page title="Liven">
             <div className="Home-container">
                 <Portada />
-                <Description />
+                <OurProducts />
+                <Clients />
                 <We />
-                <People />
-                <Fork />
+                <Sustanibility />
+                <Sharing />
+                <PauligBanner />
                 <Footer />
             </div>
         </Page>

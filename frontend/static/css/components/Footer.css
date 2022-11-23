@@ -1,4 +1,9 @@
 .Footer-container {
-    background: #F5F4EA;
+    background: #000;
     padding: 26px 48px;
+}
+
+.Footer-logo {
+    fill: white;
+    max-width: 200px;
 }

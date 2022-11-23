@@ -6,59 +6,24 @@ import {
     ShoppingBasket,
     ShoppingCart
 } from '@mui/icons-material';
-import StoreIcon from '@mui/icons-material/Store';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import FemaleIcon from '@mui/icons-material/Female';
-import WorkIcon from '@mui/icons-material/Work';
-import WebIcon from '@mui/icons-material/Web';
-import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import FactoryIcon from '@mui/icons-material/Factory';
 
 const NavBar = () => {
     const items = [
         {
-            href: '/administracio/lots',
-            icon: ShoppingCart,
-            title: 'Lots',
+            href: '/administracio/product-families',
+            icon: FactoryIcon,
+            title: 'Product families',
         },
         {
-            href: '/administracio/productes',
-            icon: ShoppingBasket,
-            title: 'Productes',
+            href: '/administracio/claims',
+            icon: FactoryIcon,
+            title: 'Claims',
         },
         {
-            href: '/administracio/comandes',
-            icon: StoreIcon,
-            title: 'Comandes',
-        },
-        {
-            href: '/administracio/dones',
-            icon: FemaleIcon,
-            title: 'Dones',
-        },
-        {
-            href: '/administracio/actualitat',
-            icon: MenuBookIcon,
-            title: 'Actualitat',
-        },
-        {
-            href: '/administracio/premsa',
-            icon: FeaturedPlayList,
-            title: 'Premsa',
-        },
-        {
-            href: '/administracio/quefem',
-            icon: WorkIcon,
-            title: "Sector d'activitat",
-        },
-        {
-            href: '/administracio/portada',
-            icon: WebIcon,
-            title: "Portada",
-        },
-        {
-            href: '/administracio/quisom',
-            icon: HistoryEduIcon,
-            title: "Qui Som",
+            href: '/administracio/products',
+            icon: FactoryIcon,
+            title: 'Products',
         },
 
     ];
