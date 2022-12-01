@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 import We from './Portada/We';
 import OurProducts from './Portada/OurProducts';
 import Clients from './Portada/Clients';
-import Sustanibility from './Portada/Sustanibility';
+import SustanibilityHome from './Portada/SustanibilityHome';
 import Sharing from './Portada/Sharing';
 import SliderComponent from '../components/SliderComponent';
 import PauligBanner from './Portada/PauligBanner';
@@ -30,7 +30,7 @@ const Home = (props) => {
                 <OurProducts />
                 <Clients />
                 <We />
-                <Sustanibility />
+                <SustanibilityHome />
                 <Sharing />
                 <PauligBanner />
                 <Footer />

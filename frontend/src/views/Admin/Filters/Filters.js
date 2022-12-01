@@ -33,7 +33,7 @@ const Filters = () => {
                 filter: false,
                 sort: false,
                 empty: true,
-                customBodyRender: (id) => {
+                customBodyRender: (name) => {
                     return (
                         <>
                             <Box style={{display: 'flex', alignItems: 'center'}}>
@@ -42,7 +42,7 @@ const Filters = () => {
                                     <IconButton
                                         onClick={() =>
                                             navigate(
-                                                `/administracio/filters/${id}`
+                                                `/administracio/filters/${name}`
                                             )
                                         }
                                     >
@@ -50,19 +50,11 @@ const Filters = () => {
                                     </IconButton>
                                 </Tooltip>
                             </Box>
-                            <Box style={{display: 'flex', alignItems: 'center'}}>
-                                <Typography variant='body1'>Afegir Value</Typography>
-                                <Tooltip title="Crear value">
-                                    <IconButton onClick={() => navigate(`/administracio/filters/value/${id}/nou`)}>
-                                        <Add />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
 
                             <Box style={{display: 'flex', alignItems: 'center'}}>
                                 <Typography variant='body1'>Veure Values</Typography>
                                 <Tooltip title="Veure values">
-                                    <IconButton onClick={() => navigate(`/administracio/filters/value/${id}`)}>
+                                    <IconButton onClick={() => navigate(`/administracio/product-families/${id}/filters/${name}/value`)}>
                                         <RemoveRedEye />
                                     </IconButton>
                                 </Tooltip>
@@ -119,7 +111,7 @@ const Filters = () => {
                 subtitle="Gestiona els filtres principals que es mostren al buscador"
                 button={
                     <Tooltip title="Crear filtre">
-                        <IconButton onClick={() => navigate('nou')}>
+                        <IconButton onClick={() => navigate(`/administracio/product-families/${id}/filter/nou`)}>
                             <Add />
                         </IconButton>
                     </Tooltip>

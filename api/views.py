@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FiltersSerializer, ProductFamiliesSerializer, ClaimsSerializer, ValuesSerializer, ProductSerializer
-from .models import Filters, ProductFamilies, Claims, Values, Product
+from .serializers import FiltersSerializer, ProductFamiliesSerializer, ClaimsSerializer, ValuesSerializer, ProductSerializer, PageSerializer, TextSerializer, ImageSerializer
+from .models import Filters, ProductFamilies, Claims, Values, Product, Page, Text, Image
 from django.http import HttpResponse
 import os
 # Create your views here.
@@ -358,3 +358,136 @@ class SearchProductByNameView(APIView):
             data = ProductSerializer(results, many=True).data
             return Response(data, status=status.HTTP_200_OK)
         return Response([], status=status.HTTP_200_OK)
+
+
+class CreatePageView(APIView):
+    serializer_class = PageSerializer
+
+    def post(self, request, format=None):
+        posts_serializer = PageSerializer(data=request.data)
+        if posts_serializer.is_valid():
+            posts_serializer.save()
+            return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', posts_serializer.errors)
+            return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetPageListView(APIView):
+
+    def get(self, request, format=None):
+        result = Page.objects.all()
+        data = PageSerializer(result, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+class GetPageView(APIView):
+    serializer_class = PageSerializer
+
+    def get(self, request, format=None):
+        page_id = request.GET.get('id')
+        result = Page.objects.filter(id=page_id)
+        if (result.exists()):
+            data = PageSerializer(result, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        return Response("Page not found", status=status.HTTP_404_NOT_FOUND)
+
+
+class CreateTextView(APIView):
+    serializer_class = TextSerializer
+
+    def post(self, request, format=None):
+        posts_serializer = TextSerializer(data=request.data)
+        if posts_serializer.is_valid():
+            posts_serializer.save()
+            return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', posts_serializer.errors)
+            return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetTextListView(APIView):
+
+    def get(self, request, format=None):
+        result = Text.objects.all()
+        data = TextSerializer(result, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+class GetTextView(APIView):
+    serializer_class = TextSerializer
+
+    def get(self, request, format=None):
+        id = request.GET.get('page')
+        result = Text.objects.filter(page=id)
+        if (result.exists()):
+            data = TextSerializer(result, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        return Response("Text not found", status=status.HTTP_404_NOT_FOUND)
+
+class UpdateTextView(APIView):
+    serializer_class = TextSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+
+            name = serializer.data.get('name')
+            content = serializer.data.get('content')
+            
+            results = Text.objects.filter(name=name)
+            item = results[0]
+            if (content != None):
+                item.content = content
+            
+            item.save()
+            return Response(TextSerializer(item).data, status=status.HTTP_200_OK)
+        return Response({'Bad Request': 'Invalid Data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class CreateImageView(APIView):
+    serializer_class = ImageSerializer
+
+    def post(self, request, format=None):
+        posts_serializer = ImageSerializer(data=request.data)
+        if posts_serializer.is_valid():
+            posts_serializer.save()
+            return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', posts_serializer.errors)
+            return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GetImageListView(APIView):
+
+    def get(self, request, format=None):
+        result = Image.objects.all()
+        data = ImageSerializer(result, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+class GetImageView(APIView):
+    serializer_class = ImageSerializer
+
+    def get(self, request, format=None):
+        id = request.GET.get('page')
+        result = Image.objects.filter(page=id)
+        if (result.exists()):
+            data = ImageSerializer(result, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        return Response("Image not found", status=status.HTTP_404_NOT_FOUND)
+
+class UpdateImageView(APIView):
+    serializer_class = ImageSerializer
+
+    def patch(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+
+            name = serializer.data.get('name')
+            if 'content' in request.FILES:
+                content = request.FILES['content']
+            else:
+                content = None
+            
+            results = Image.objects.filter(name=name)
+            item = results[0]
+            if (content != None):
+                item.content = content
+            
+            item.save()
+            return Response(ImageSerializer(item).data, status=status.HTTP_200_OK)
+        return Response({'Bad Request': 'Invalid Data...'}, status=status.HTTP_400_BAD_REQUEST)

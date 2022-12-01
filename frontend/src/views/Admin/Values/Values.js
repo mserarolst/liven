@@ -15,7 +15,7 @@ const Values = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const [filter, setFilter] = useState(null);
-    const { id } = useParams();
+    const { id_pf, id_f } = useParams();
 
     const columns = [
         {
@@ -42,10 +42,18 @@ const Values = () => {
                                     <IconButton
                                         onClick={() =>
                                             navigate(
-                                                `/administracio/filters/value/${id}`
+                                                `/administracio/product-families/${id_pf}/filters/${id_f}/value/${id}`
                                             )
                                         }
                                     >
+                                        <RemoveRedEye />
+                                    </IconButton>
+                                </Tooltip>
+                            </Box>
+                            <Box style={{display: 'flex', alignItems: 'center'}}>
+                                <Typography variant='body1'>Veure Productes</Typography>
+                                <Tooltip title="Veure values">
+                                    <IconButton onClick={() => navigate(`/administracio/product-families/${id_pf}/filters/${id_f}/value/${id}/products`)}>
                                         <RemoveRedEye />
                                     </IconButton>
                                 </Tooltip>
@@ -59,7 +67,7 @@ const Values = () => {
 
     useEffect(() => {
         const getValues = async () => {
-            const { data, message } = await get('get-values-by-filters?filter=' + id);
+            const { data, message } = await get('get-values-by-filters?filter=' + id_f);
             console.log(message);
             console.log(data);
 
@@ -67,7 +75,7 @@ const Values = () => {
         };
         getValues();
         const getFilter = async () => {
-            const { data, message } = await get('get-filters?id=' + id);
+            const { data, message } = await get('get-filters?id=' + id_f);
             console.log(message);
             console.log(data);
 
@@ -103,7 +111,7 @@ const Values = () => {
                 subtitle="Gestiona els filtres principals que es mostren al buscador"
                 button={
                     <Tooltip title="Crear filtre">
-                        <IconButton onClick={() => navigate('nou')}>
+                        <IconButton onClick={() => navigate(`/administracio/product-families/${id_pf}/filters/${id_f}/value/nou`)}>
                             <Add />
                         </IconButton>
                     </Tooltip>

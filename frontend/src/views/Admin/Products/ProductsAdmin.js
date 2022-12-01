@@ -1,6 +1,6 @@
 import { CircularProgress, Fade, Tooltip, IconButton, Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { deleteElement, get } from '../../../api/API';
+import { deleteElement, get, search } from '../../../api/API';
 import MUIDataTable from 'mui-datatables';
 import { options } from '../../../components/optionsTable';
 import Title from '../../../components/Title';
@@ -14,7 +14,7 @@ const ProductsAdmin = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { id } = useParams();
+    const { id_pf, id_f, id_v } = useParams();
 
     const columns = [
         {
@@ -59,13 +59,28 @@ const ProductsAdmin = () => {
     useEffect(() => {
         const getProducts = async () => {
             const { data, message } = await get('get-products-list');
-            console.log(message);
-            console.log(data);
 
             setData(data);
             setLoading(false);
         };
-        getProducts();
+
+        const getProductsById = async () => {
+            const params = {
+                product_family: id_pf,
+                claim: null,
+                filter: id_f,
+                value: id_v
+            }
+            const { result, message } = await search(params);
+            setData(result);
+            setLoading(false);
+        }
+
+        if (id_pf != undefined && id_f != undefined && id_v != undefined) {
+            getProductsById();
+        } else {
+            getProducts();
+        }
     }, []);
 
     const optionsTable = {

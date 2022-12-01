@@ -15,6 +15,9 @@ import Values from './views/Admin/Values/Values';
 import AddValues from './views/Admin/Values/AddValues';
 import ProductsAdmin from './views/Admin/Products/ProductsAdmin';
 import AddProduct from './views/Admin/Products/AddProduct';
+import PagesAdmin from './views/Admin/Pages/PagesAdmin';
+import PageSelect from './views/Admin/Pages/PageSelect';
+import Sustainability from './views/Sustainability/Sustainability';
 
 const routes = (user, isMobile) => [
     {
@@ -27,6 +30,7 @@ const routes = (user, isMobile) => [
             // },
             { path: '/', element: <Home /> },
             { path: '/products', element: <Products /> },
+            { path: '/sustainability', element: <Sustainability />}
         ],
     },
     {
@@ -37,14 +41,18 @@ const routes = (user, isMobile) => [
             { path: '/administracio', element: <Dash /> },
             { path: '/administracio/product-families', element: <ProductFamilies /> },
             { path: '/administracio/product-families/nou', element: <AddProductFamilies /> },
-            { path: '/administracio/product-families/filter/:id', element: <Filters /> },
-            { path: '/administracio/product-families/filter/:id/nou', element: <AddFilters /> },
+            { path: '/administracio/product-families/:id/filters', element: <Filters /> },
+            { path: '/administracio/product-families/:id/filter/nou', element: <AddFilters /> },
             { path: '/administracio/claims', element: <Claims /> },
             { path: '/administracio/claims/nou', element: <AddClaims /> },
-            { path: '/administracio/filters/value/:id', element: <Values /> },
-            { path: '/administracio/filters/value/:id/nou', element: <AddValues /> },
+            { path: '/administracio/product-families/:id_pf/filters/:id_f/value', element: <Values /> },
+            { path: '/administracio/product-families/:id_pf/filters/:id_f/value/nou', element: <AddValues /> },
+            { path: '/administracio/product-families/:id_pf/filters/:id_f/value/:id_v/products', element: <ProductsAdmin /> },
+            { path: '/administracio/product-families/:id_pf/filters/:id_f/value/:id_v/products/nou', element: <AddProduct /> },
             { path: '/administracio/products', element: <ProductsAdmin /> },
             { path: '/administracio/products/nou', element: <AddProduct /> },
+            { path: '/administracio/pages', element: <PagesAdmin /> },
+            { path: '/administracio/pages/:id', element: <PageSelect /> },
         ],
     },
 ];

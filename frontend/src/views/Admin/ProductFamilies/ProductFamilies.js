@@ -66,18 +66,9 @@ const ProductFamilies = () => {
                             </Box>
 
                             <Box style={{display: 'flex', alignItems: 'center'}}>
-                                <Typography variant='body1'>Afegir filtre</Typography>
-                                <Tooltip title="Crear filtre">
-                                    <IconButton onClick={() => navigate(`/administracio/product-families/filter/${name}/nou`)}>
-                                        <Add />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
-
-                            <Box style={{display: 'flex', alignItems: 'center'}}>
                                 <Typography variant='body1'>Veure filtres</Typography>
                                 <Tooltip title="Veure filtres">
-                                    <IconButton onClick={() => navigate(`/administracio/product-families/filter/${name}`)}>
+                                    <IconButton onClick={() => navigate(`/administracio/product-families/${name}/filters`)}>
                                         <RemoveRedEye />
                                     </IconButton>
                                 </Tooltip>

@@ -25,6 +25,7 @@ const MenuLiven = (props) => {
         // {title: 'PEOPLE', link: '/people'}, 
         // {title: 'SHARING VOICES', link: '/sharing-voices'}, 
         // {title: 'CONTACT', link: '/contact'}
+        {title: 'SUSTAINABILITY', link: '/sustainability'}, 
     ];
     const [translateLogo, setTranslateLogo] = useState('');
     const [colorMenu, setColorMenu] = useState('');

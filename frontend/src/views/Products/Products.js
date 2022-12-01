@@ -105,46 +105,30 @@ const Products = (props) => {
     }, [productFamilies]);
 
     useEffect(() => {
-        if (value != null) {
-            setIndexSelected(value.index);
-        }
-    }, [value]);
-
-    useEffect(() => {
         const getFilters = async () => {
             const { data, message } = await get('get-filters-by-product-families?productFamily=' + productFamilySelected?.id);
 
+            setFilterSelected(null);
             setFilters(data);
         };
-        if(productFamilySelected != null) {
-            getFilters();
-            searchProducts();
-        }
+        getFilters();
+        searchProducts();
     }, [productFamilySelected]);
-
-    useEffect(() => {
-        if(claimSelected != null) {
-            searchProducts();
-        }
-    }, [claimSelected]);
 
     useEffect(() => {
         const getValues = async () => {
             const { data, message } = await get('get-values-by-filters?filter=' + filterSelected?.id);
 
+            setValueSelected(null);
             setValues(data);
         };
-        if(filterSelected != null) {
-            getValues();
-            searchProducts();
-        }
+        getValues();
+        searchProducts();
     }, [filterSelected]);
 
     useEffect(() => {
-        if(valueSelected != null) {
-            searchProducts();
-        }
-    }, [valueSelected]);
+        searchProducts();
+    }, [claimSelected, valueSelected]);
 
     useEffect(() => {
         if(inputValue != null) {
@@ -168,13 +152,13 @@ const Products = (props) => {
     const renderResults = () => {
         return (
             !loading ? (
-                products?.map((product, index) => {
+                (products?.length > 0 ? products?.map((product, index) => {
                     return (
                         <Grid item md={6}>
                             <Result item={product} index={index}/>
                         </Grid>
                     )
-                })
+                }) : <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Typography variant='body1'>No hi ha productes amb aquestes característiques.</Typography></div>)
             ) : (
                 <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <CircularProgress sx={{width:'80px !important', height:'80px !important'}}/>
@@ -194,6 +178,7 @@ const Products = (props) => {
                             width='100%'
                             items={filters}
                             f_setTypeFilter={setFilterSelected}
+                            objectSelected={filterSelected}
                         />
                     </div>
                 </div>
@@ -213,6 +198,7 @@ const Products = (props) => {
                             width='100%'
                             items={values}
                             f_setTypeFilter={setValueSelected}
+                            objectSelected={valueSelected}
                         />
                     </div>
                 </div>
@@ -225,7 +211,7 @@ const Products = (props) => {
         <Page title="Liven - Products">
             <Box className="Products-container">
                 <div className="Products-menu">
-                    <Typography variant='h1' color='#555448' marginBottom='30px' fontFamily='Lato-Light' marginTop={'40%'}>Our Products</Typography>
+                    <Typography variant='h1' color='#555448' marginBottom='30px' fontFamily='Lato-Light' marginTop={'20vh'}>Our Products</Typography>
                     <Typography variant='h3' color='#555448' marginBottom='30px'>Discover our range of products we can offer you. Deep in our range of snacks and tex-mex options, and find your best solution.</Typography>
                     <SearchProduct 
                         products={productList} 
@@ -242,6 +228,7 @@ const Products = (props) => {
                         width='100%'
                         items={productFamilies}
                         f_setTypeFilter={setProductFamilySelected}
+                        objectSelected={productFamilySelected}
                     />
                     <Typography variant='h2' color='#555448' marginTop='38px' marginBottom='19px' fontFamily='Helvetica-bold'>{secondTitle}</Typography>
                     <TypeFilters 
@@ -249,6 +236,7 @@ const Products = (props) => {
                         width='100%'
                         items={claims}
                         f_setTypeFilter={setClaimSelected}
+                        objectSelected={claimSelected}
                     />
                     {renderFilterByProductFamily()}
                     {renderValuesByFilter()}

@@ -51,7 +51,7 @@ const AddProduct = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { id } = useParams();
+    const { id_pf, id_f, id_v } = useParams();
     const [filter, setFilter] = useState(null);
 
     const [productFamilies, setProductFamilies] = useState([]);
@@ -72,13 +72,16 @@ const AddProduct = () => {
 
             setProductFamilies(data);
         };
-        getProductFamilies();
 
         const getClaims = async () => {
             const { data, message } = await get('get-claims-list');
 
             setClaims(data);
         };
+
+        if (id_pf != undefined && id_f != undefined && id_v != undefined) {
+            getProductFamilies();
+        }
         getClaims();
     }, []);
 
@@ -101,15 +104,29 @@ const AddProduct = () => {
     }, [filterSelected]);
 
     const crear = async (values) => {
-        const dades = {
-            name: values.name,
-            description: values.description,
-            image: values.image,
-            product_family: productFamilySelected,
-            claim: claimSelected,
-            filter: filterSelected,
-            value: valueSelected
+        let dades;
+        if (id_pf != undefined && id_f != undefined && id_v != undefined) {
+            dades = {
+                name: values.name,
+                description: values.description,
+                image: values.image,
+                product_family: id_pf,
+                claim: claimSelected,
+                filter: id_f,
+                value: id_v
+            }
+        } else {
+            dades = {
+                name: values.name,
+                description: values.description,
+                image: values.image,
+                product_family: productFamilySelected,
+                claim: claimSelected,
+                filter: filterSelected,
+                value: valueSelected
+            }
         }
+        
         const message = await create(dades, 'create-product');
         enqueueSnackbar(message, {
             variant: 'success',
@@ -117,8 +134,234 @@ const AddProduct = () => {
         navigate(-1, { state: values });
     };
 
+    function renderForm(touched, errors, handleBlur, handleChange, handleSubmit, values, setFieldValue) {
+        if (id_pf != undefined && id_f != undefined && id_v != undefined) {
+            return (
+                <Box className={classes.wrap}>
+                    <Grid container spacing={3}>
+                        <Grid item md={6}>
+                            <TextField
+                                error={Boolean(
+                                    touched.name &&
+                                        errors.name
+                                )}
+                                fullWidth
+                                helperText={
+                                    touched.name &&
+                                    errors.name
+                                }
+                                label="Name"
+                                margin="normal"
+                                name="name"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="text"
+                                value={values.name}
+                            />
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <input
+                                id="image"
+                                name="image"
+                                type="file"
+                                inputProps={{ accept: 'image/*' }}
+                                required={true}
+                                onChange={(event) => {
+                                    setFieldValue(
+                                        'image',
+                                        event.currentTarget.files[0]
+                                    );
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item md={6}>
+                            <TextField
+                                error={Boolean(
+                                    touched.description &&
+                                        errors.description
+                                )}
+                                fullWidth
+                                helperText={
+                                    touched.description &&
+                                    errors.description
+                                }
+                                label="Description"
+                                margin="normal"
+                                name="description"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="text"
+                                multiline
+                                value={values.description}
+                            />
+                        </Grid>
+                        <Grid item md={3} xs={12}>
+                            <Typography variant='h3'>{"Claim"}</Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={claimSelected}
+                                label="Claim"
+                                onChange={(event) => {
+                                    setClaimSelected(event.target.value);
+                                }}
+                            >
+                                {claims?.map((claim, index) => {
+                                    return (
+                                        <MenuItem key={index} value={claim.id}>{claim.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </Grid>
+                    </Grid>
+                </Box>
+            )
+        } else {
+            return (
+                <Box className={classes.wrap}>
+                    <Grid container spacing={3}>
+                        <Grid item md={6}>
+                            <TextField
+                                error={Boolean(
+                                    touched.name &&
+                                        errors.name
+                                )}
+                                fullWidth
+                                helperText={
+                                    touched.name &&
+                                    errors.name
+                                }
+                                label="Name"
+                                margin="normal"
+                                name="name"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="text"
+                                value={values.name}
+                            />
+                        </Grid>
+                        <Grid item md={6} xs={12}>
+                            <input
+                                id="image"
+                                name="image"
+                                type="file"
+                                inputProps={{ accept: 'image/*' }}
+                                required={true}
+                                onChange={(event) => {
+                                    setFieldValue(
+                                        'image',
+                                        event.currentTarget.files[0]
+                                    );
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item md={12}>
+                            <TextField
+                                error={Boolean(
+                                    touched.description &&
+                                        errors.description
+                                )}
+                                fullWidth
+                                helperText={
+                                    touched.description &&
+                                    errors.description
+                                }
+                                label="Description"
+                                margin="normal"
+                                name="description"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="text"
+                                multiline
+                                value={values.description}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3} marginTop='15px'>
+                        <Grid item md={3} xs={12}>
+                            <Typography variant='h3'>{"Product Family"}</Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={productFamilySelected}
+                                label="Product family"
+                                onChange={(event) => {
+                                    setProductFamilySelected(event.target.value);
+                                }}
+                            >
+                                {productFamilies?.map((productFamily, index) => {
+                                    return (
+                                        <MenuItem key={index} value={productFamily.id}>{productFamily.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </Grid>
+                        <Grid item md={3} xs={12}>
+                            <Typography variant='h3'>{"Claim"}</Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={claimSelected}
+                                label="Claim"
+                                onChange={(event) => {
+                                    setClaimSelected(event.target.value);
+                                }}
+                            >
+                                {claims?.map((claim, index) => {
+                                    return (
+                                        <MenuItem key={index} value={claim.id}>{claim.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </Grid>
+                        <Grid item md={3} xs={12}>
+                            <Typography variant='h3'>{"Filter"}</Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={filterSelected}
+                                label="Filter"
+                                onChange={(event) => {
+                                    setFilterSelected(event.target.value);
+                                }}
+                            >
+                                {filters?.map((filter, index) => {
+                                    return (
+                                        <MenuItem key={index} value={filter.id}>{filter.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </Grid>
+                        <Grid item md={3} xs={12}>
+                            <Typography variant='h3'>{"Value"}</Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={valueSelected}
+                                label="Claim"
+                                onChange={(event) => {
+                                    setValueSelected(event.target.value);
+                                }}
+                            >
+                                {valuesFilter?.map((value, index) => {
+                                    return (
+                                        <MenuItem key={index} value={value.id}>{value.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </Grid>
+                    </Grid>
+                </Box>
+            )
+        }
+    }
+
     return (
-        <Page title="Add Value">
+        <Page title="Add Product">
             <Formik
                 initialValues={{
                     name: '',
@@ -147,148 +390,13 @@ const AddProduct = () => {
                 }) => (
                     <form onSubmit={handleSubmit}>
                         <Title
-                            title={'Create values for ' + filter?.name}
+                            title={'Create product'}
                             subtitle={
                                 'Entra les dades per guardar una nova entrada'
                             }
                         />
 
-                        <Box className={classes.wrap}>
-                            <Grid container spacing={3}>
-                                <Grid item md={6}>
-                                    <TextField
-                                        error={Boolean(
-                                            touched.name &&
-                                                errors.name
-                                        )}
-                                        fullWidth
-                                        helperText={
-                                            touched.name &&
-                                            errors.name
-                                        }
-                                        label="Name"
-                                        margin="normal"
-                                        name="name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        type="text"
-                                        value={values.name}
-                                    />
-                                </Grid>
-                                <Grid item md={6} xs={12}>
-                                    <input
-                                        id="image"
-                                        name="image"
-                                        type="file"
-                                        inputProps={{ accept: 'image/*' }}
-                                        required={true}
-                                        onChange={(event) => {
-                                            setFieldValue(
-                                                'image',
-                                                event.currentTarget.files[0]
-                                            );
-                                        }}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item md={12}>
-                                    <TextField
-                                        error={Boolean(
-                                            touched.description &&
-                                                errors.description
-                                        )}
-                                        fullWidth
-                                        helperText={
-                                            touched.description &&
-                                            errors.description
-                                        }
-                                        label="Description"
-                                        margin="normal"
-                                        name="description"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        type="text"
-                                        multiline
-                                        value={values.description}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid container spacing={3} marginTop='15px'>
-                                <Grid item md={3} xs={12}>
-                                    <Typography variant='h3'>{"Product Family"}</Typography>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        value={productFamilySelected}
-                                        label="Product family"
-                                        onChange={(event) => {
-                                            setProductFamilySelected(event.target.value);
-                                        }}
-                                    >
-                                        {productFamilies?.map((productFamily, index) => {
-                                            return (
-                                                <MenuItem key={index} value={productFamily.id}>{productFamily.name}</MenuItem>
-                                            )
-                                        })}
-                                    </Select>
-                                </Grid>
-                                <Grid item md={3} xs={12}>
-                                    <Typography variant='h3'>{"Claim"}</Typography>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        value={claimSelected}
-                                        label="Claim"
-                                        onChange={(event) => {
-                                            setClaimSelected(event.target.value);
-                                        }}
-                                    >
-                                        {claims?.map((claim, index) => {
-                                            return (
-                                                <MenuItem key={index} value={claim.id}>{claim.name}</MenuItem>
-                                            )
-                                        })}
-                                    </Select>
-                                </Grid>
-                                <Grid item md={3} xs={12}>
-                                    <Typography variant='h3'>{"Filter"}</Typography>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        value={filterSelected}
-                                        label="Filter"
-                                        onChange={(event) => {
-                                            setFilterSelected(event.target.value);
-                                        }}
-                                    >
-                                        {filters?.map((filter, index) => {
-                                            return (
-                                                <MenuItem key={index} value={filter.id}>{filter.name}</MenuItem>
-                                            )
-                                        })}
-                                    </Select>
-                                </Grid>
-                                <Grid item md={3} xs={12}>
-                                    <Typography variant='h3'>{"Value"}</Typography>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        value={valueSelected}
-                                        label="Claim"
-                                        onChange={(event) => {
-                                            setValueSelected(event.target.value);
-                                        }}
-                                    >
-                                        {valuesFilter?.map((value, index) => {
-                                            return (
-                                                <MenuItem key={index} value={value.id}>{value.name}</MenuItem>
-                                            )
-                                        })}
-                                    </Select>
-                                </Grid>
-                            </Grid>
-                        </Box>
+                        {renderForm(touched, errors, handleBlur, handleChange, handleSubmit, values, setFieldValue)}
 
                         <Box my={2}>
                             <Button

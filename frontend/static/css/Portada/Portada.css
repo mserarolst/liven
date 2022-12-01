@@ -2,6 +2,7 @@
     max-width: 100%;
     position: relative;
     overflow: hidden;
+    max-height: 80vh;
 }
 
 .Portada-img {
@@ -12,24 +13,29 @@
 }
 
 .Portada-content {
-    width: 100%;
+    max-width: 100%;
+    padding: 0 7%;
     top: 0;
     bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
+    right: 0;
+    left: 0;
+    margin: auto;
     position: absolute;
+    max-height: 55%;
+    display: flex;
+    justify-content: space-between;
 }
 .Portada-divs {
     display: flex;
-    height: 85%;
+    max-height: 100%;
 }
 
 .Portada-div {
-    width: 50%;
+    width: 46%;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-top: 2%;
     align-items: flex-start;
 }
 
@@ -57,4 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

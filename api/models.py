@@ -48,3 +48,26 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['name']
+
+class Page(models.Model):
+    name = models.CharField(max_length=240, default="")
+
+    class Meta:
+        ordering = ['name']
+
+class Text(models.Model):
+    name = models.CharField(max_length=240, default="")
+    content = models.CharField(max_length=2048, default="")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, default=None)
+
+    class Meta:
+        ordering = ['page']
+
+class Image(models.Model):
+    name = models.CharField(max_length=240, default="")
+    content = models.ImageField(_("Image"), upload_to=upload_to, default="post_images/default.jpg")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, default=None)
+
+    class Meta:
+        ordering = ['page']
+

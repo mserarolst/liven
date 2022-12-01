@@ -1,0 +1,165 @@
+.SHome-container {
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    max-height: 80vh;
+    color: #fff;
+}
+
+.SHome-image {
+    width: 100%;
+}
+
+.SHome-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.SHome-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.1;
+}
+
+.SHome-content {
+    max-width: 66%;
+    width: 100%;
+    position: absolute;
+    top: 35%;
+    left: 7%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.SHome-subcontent {
+    position: absolute;
+    bottom: 8.63%;
+    left: 51.2%;
+    width: 100%;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.SHome-title {
+    text-align: left !important;
+    text-transform: unset !important;
+}
+
+.SHome-footer {
+    text-align: left;
+    text-transform: unset !important;
+}
+
+
+.SElectric-container {
+    position: relative;
+    max-width: 100%;
+    height: 620px;
+}
+
+.SElectric-content {
+    position: absolute;
+    max-width: 80%;
+    height: 310px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.SElectric-image {
+    width: 47%;
+}
+
+.SElectric-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.SElectric-text {
+    width: 45%;
+    position: relative;
+    top: 8%;
+}
+
+.SElectric-title {
+    color: #555448;
+}
+
+.SEmissions-container {
+    position: relative;
+    color: #fff;
+}
+
+.SEmissions-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    max-width: 45%;
+}
+
+.SEmissions-text {
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
+
+.SFork-container {
+    position: relative;
+    max-height: 620px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.SFork-content {
+    display: flex;
+    position: absolute;
+    bottom: 20%;
+    right: 10%;
+    max-width: 65%;
+
+}
+
+.SFork-img {
+    width: 263px;
+    height: 263px;
+    object-fit: cover;
+}
+
+.SFork-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 60%;
+    padding-left: 40px;
+}
+
+.SWater-container {
+    position: relative;
+    max-height: 620px;
+    overflow: hidden;
+    color: #555448;
+}
+
+.SWater-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 45%;
+}
+
+.SWater-text {
+    padding-left: 15%;
+    padding-top: 15%;
+}

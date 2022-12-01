@@ -76,14 +76,14 @@ const theme = createTheme({
     typography: {
         h1: {
             fontFamily: 'Noto Serif Gujarati-bold',
-            fontSize: '3rem',
+            fontSize: '4.5vw',
             [breakpoints.breakpoints.down('sm')]: {
                 fontSize: '2rem',
             },
         },
         h2: {
             fontFamily: 'Noto Serif Gujarati-bold',
-            fontSize: '1.5rem',
+            fontSize: '2vwrem',
             textTransform: 'uppercase',
             [breakpoints.breakpoints.down('sm')]: {
                 fontSize: '1.2rem',
@@ -91,7 +91,7 @@ const theme = createTheme({
         },
         h3: {
             fontFamily: 'Noto Serif Gujarati',
-            fontSize: '1.2rem',
+            fontSize: '1.5vw',
             fontWeight: 400,
 
             [breakpoints.breakpoints.down('sm')]: {
@@ -100,7 +100,7 @@ const theme = createTheme({
         },
         h4: {
             fontFamily: 'Noto Serif Gujarati-Light',
-            fontSize: '1rem',
+            fontSize: '1.3vw',
             fontWeight: 400,
 
             [breakpoints.breakpoints.down('sm')]: {

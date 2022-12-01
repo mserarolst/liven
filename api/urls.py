@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CreateFiltersView, CreateValuesView, DeleteFiltersView, DeleteValuesView, FiltersView, GetFiltersByProductFamilyView, GetFiltersListView, GetFiltersView, GetValuesByFiltersView, GetValuesListView, GetValuesView, ProductFamiliesView, CreateProductFamiliesView, DeleteProductFamiliesView, GetProductFamiliesView, GetProductFamiliesListView, UpdateFiltersView, UpdateProductFamiliesView, ClaimsView, CreateClaimsView, DeleteClaimsView, GetClaimsView, GetClaimsListView, UpdateClaimsView, UpdateValuesView, ValuesView, CreateProductView, GetProductsListView, DeleteProductView, SearchProductView, SearchProductByNameView
+from .views import CreateFiltersView, CreateValuesView, DeleteFiltersView, DeleteValuesView, FiltersView, GetFiltersByProductFamilyView, GetFiltersListView, GetFiltersView, GetValuesByFiltersView, GetValuesListView, GetValuesView, ProductFamiliesView, CreateProductFamiliesView, DeleteProductFamiliesView, GetProductFamiliesView, GetProductFamiliesListView, UpdateFiltersView, UpdateProductFamiliesView, ClaimsView, CreateClaimsView, DeleteClaimsView, GetClaimsView, GetClaimsListView, UpdateClaimsView, UpdateValuesView, ValuesView, CreateProductView, GetProductsListView, DeleteProductView, SearchProductView, SearchProductByNameView, CreatePageView, GetPageListView, GetPageView, CreateTextView, GetTextListView, GetTextView, CreateImageView, GetImageListView, GetImageView, UpdateImageView, UpdateTextView
 
 urlpatterns = [
     path('product-families', ProductFamiliesView.as_view()),
@@ -36,5 +36,19 @@ urlpatterns = [
     path('delete-product', DeleteProductView.as_view()),
     path('get-products-list', GetProductsListView.as_view()),
     path('search-products', SearchProductView.as_view()),
-    path('search-products-by-name', SearchProductByNameView.as_view())
+    path('search-products-by-name', SearchProductByNameView.as_view()),
+
+    path('create-page', CreatePageView.as_view()),
+    path('get-page-list', GetPageListView.as_view()),
+    path('get-page', GetPageView.as_view()),
+
+    path('create-text', CreateTextView.as_view()),
+    path('get-text-list', GetTextListView.as_view()),
+    path('get-text', GetTextView.as_view()),
+    path('update-text', UpdateTextView.as_view()),
+
+    path('create-image', CreateImageView.as_view()),
+    path('get-image-list', GetImageListView.as_view()),
+    path('get-image', GetImageView.as_view()),
+    path('update-image', UpdateImageView.as_view()),
 ]

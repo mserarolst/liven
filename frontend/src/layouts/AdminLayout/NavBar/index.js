@@ -1,11 +1,7 @@
 import React from 'react';
 import { List } from '@mui/material';
 import NavItem from './NavItem';
-import {
-    FeaturedPlayList,
-    ShoppingBasket,
-    ShoppingCart
-} from '@mui/icons-material';
+import WebIcon from '@mui/icons-material/Web';
 import FactoryIcon from '@mui/icons-material/Factory';
 
 const NavBar = () => {
@@ -24,6 +20,11 @@ const NavBar = () => {
             href: '/administracio/products',
             icon: FactoryIcon,
             title: 'Products',
+        },
+        {
+            href: '/administracio/pages',
+            icon: WebIcon,
+            title: 'Pages',
         },
 
     ];

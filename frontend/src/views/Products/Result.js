@@ -2,8 +2,7 @@ import { Typography, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import '../../../static/css/Products/Products.css';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import { Link } from 'react-router-dom';
-import image from '../../../static/images/product.png';
+
 
 const Result = (props) => {
 
@@ -11,9 +10,13 @@ const Result = (props) => {
         window.scrollTo(0, 0);
     }, []);
 
+    
+
     return (
         <Box key={props.index} className="Product-container">
-            <img src={props.item.image} className="Product-img"/>
+            <div className='Product-image'>
+                <img src={props.item.image} className="Product-img"/>
+            </div>
             <div className="Product-info">
                 <Typography variant='h3' textTransform='uppercase' color='#545448' textAlign='left' marginLeft={'14px'}>{props.item.name}</Typography>
                 <Typography variant='h4' textTransform='uppercase' color='#555448' textAlign='left' marginLeft={'14px'} marginTop='2px'>{props.item.productFamily}</Typography>
